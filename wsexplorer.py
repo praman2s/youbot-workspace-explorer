@@ -4,14 +4,15 @@
 # this distribution and at https://github.com/Arn-O/youbot-workspace-explorer/blob/master/LICENSE.
 
 '''
-General description
+This program generates and dict of reachable positions of the end-effector of
+the KUKA youBot and dump the values into a flat file.
 '''
 
 import math as m
 
 # Global constants
 PI = 3.1415926535897931
-DELTA = 0.05
+DELTA = 0.5
 
 THETA_1_MIN = 0.0
 THETA_1_MAX = (155.0 / 180) * PI
