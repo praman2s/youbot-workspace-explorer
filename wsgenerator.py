@@ -13,7 +13,7 @@ import math as m
 
 # Global constants
 PI = 3.1415926535897931
-DELTA = 0.2
+DELTA = 0.05
 
 THETA_1_MIN = 0.0
 THETA_1_MAX = (155.0 / 180) * PI
@@ -31,15 +31,15 @@ A_1 = 0.155
 A_2 = 0.135
 A_3 = 0.218
 
-ARM_FRAM_X = 0.16
-ARM_FRAM_Y = 0.20
+ARM_FRAM_X = 0.167
+ARM_FRAM_Y = 0.192
 
 def theta_to_joint(theta):
     '''Convert theta in joints angles.'''
     # converted into integer to minimizing the volume
-    joint_1 = int((theta[0] * -1 + THETA_1_OFFSET) * 1000)
-    joint_2 = int((theta[1] * -1 + THETA_2_OFFSET) * 1000)
-    joint_3 = int((theta[2] * -1 + THETA_3_OFFSET) * 1000)
+    joint_1 = int((theta[0] * -1 + THETA_1_OFFSET) * 100)
+    joint_2 = int((theta[1] * -1 + THETA_2_OFFSET) * 100)
+    joint_3 = int((theta[2] * -1 + THETA_3_OFFSET) * 100)
     return (joint_1, joint_2, joint_3)
 
 def odom_frame_tf(coord):
@@ -51,6 +51,7 @@ def odom_frame_tf(coord):
     return (x_odom, z_odom)
 
 def add_to_dict(iv, xz, joint):
+    '''Add the coordination and joint tuples to the iv dict.'''
     if xz in iv:
         iv[xz].append(joint)
     else:
@@ -93,7 +94,9 @@ def main():
                 xz = odom_frame_tf(xy)
                 add_to_dict(iv, xz, joint)
 
-    print iv
-                
+    for coord in iv.keys():
+        if len(iv[coord]) >= 5:
+            print len(iv[coord]), coord, iv[coord]
+
 if __name__ == '__main__':
     main()
