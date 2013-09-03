@@ -9,11 +9,13 @@ This program generates and dict of reachable positions of the end-effector of
 the KUKA youBot and dump the values into a flat file.
 '''
 
+import pickle
 import math as m
 
 # Global constants
 PI = 3.1415926535897931
-DELTA = 0.05
+DELTA = 0.04
+
 
 THETA_1_MIN = 0.0
 THETA_1_MAX = (155.0 / 180) * PI
@@ -94,9 +96,10 @@ def main():
                 xz = odom_frame_tf(xy)
                 add_to_dict(iv, xz, joint)
 
-    for coord in iv.keys():
-        if len(iv[coord]) >= 5:
-            print len(iv[coord]), coord, iv[coord]
+    with open('inverse_kinematics.txt', 'wb') as handle:
+        pickle.dump(iv, handle)
+        
+    print 'Done.'
 
 if __name__ == '__main__':
     main()
