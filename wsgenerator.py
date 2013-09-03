@@ -14,8 +14,7 @@ import math as m
 
 # Global constants
 PI = 3.1415926535897931
-DELTA = 0.04
-
+DELTA = 0.01
 
 THETA_1_MIN = 0.0
 THETA_1_MAX = (155.0 / 180) * PI
@@ -35,6 +34,24 @@ A_3 = 0.218
 
 ARM_FRAM_X = 0.167
 ARM_FRAM_Y = 0.192
+WHEEL_OFFSET = 0.034
+BASE_LENGTH = 0.570
+
+def has_collided(coord):
+    '''Check if the position is not a collision.'''
+    (x, y) = coord
+    if y < ((ARM_FRAM_Y + WHEEL_OFFSET) * -1):
+        return True
+
+    if y < 0 and x < ((BASE_LENGTH / 2) - ARM_FRAM_X) and x > (ARM_FRAM_X * -1):
+
+        return True
+
+    if y < (WHEEL_OFFSET * -1) and x  < (ARM_FRAM_X *
+                    -1) and x > (((BASE_LENGTH / 2) + ARM_FRAM_X) * -1):
+        return True
+
+    return False
 
 def theta_to_joint(theta):
     '''Convert theta in joints angles.'''
@@ -88,9 +105,12 @@ def main():
                 ut_123 = ut_12 + theta_3
                 x_123 = x_12 + A_3 * m.cos(ut_123)
                 y_123 = y_12 + A_3 * m.sin(ut_123)
-
-                theta = (theta_1, theta_2, theta_3)
+                    
                 xy = (x_123, y_123)
+                if has_collided(xy):
+                    continue
+                
+                theta = (theta_1, theta_2, theta_3)
                 
                 joint = theta_to_joint(theta)
                 xz = odom_frame_tf(xy)

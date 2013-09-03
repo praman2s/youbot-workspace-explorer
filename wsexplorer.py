@@ -13,12 +13,15 @@ import pickle
 
 def main():
 
+    print 'Loading file ...'
     with open('inverse_kinematics.txt', 'rb') as handle:
         iv = pickle.loads(handle.read())
-
+    print 'Done.'
+    
     for coord in iv.keys():
-        if len(iv[coord]) >= 7:
+        if len(iv[coord]) >= 10:
             print len(iv[coord]), coord, iv[coord]
+            print '---'
 
 if __name__ == '__main__':
     main()
