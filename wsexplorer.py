@@ -9,6 +9,8 @@ This program generates and dict of reachable positions of the end-effector of
 the KUKA youBot and dump the values into a flat file.
 '''
 
+import matplotlib.pyplot as plt
+import numpy as np
 import pickle
 
 def main():
@@ -17,11 +19,31 @@ def main():
     with open('inverse_kinematics.txt', 'rb') as handle:
         iv = pickle.loads(handle.read())
     print 'Done.'
-    
+
+    coord_x = []
+    coord_y = []
+
     for coord in iv.keys():
-        if len(iv[coord]) >= 10:
-            print len(iv[coord]), coord, iv[coord]
-            print '---'
+        for _ in range(len(iv[coord])):
+            coord_x.append(coord[0])
+            coord_y.append(coord[1])
+
+    x = np.array(coord_x)
+    y = np.array(coord_y)
+
+    xmin = x.min()
+    xmax = x.max()
+    ymin = y.min()
+    ymax = y.max()
+
+    gridsize=60
+
+    plt.hexbin(x, y, gridsize=gridsize, cmap=plt.cm.jet, bins=None)
+    plt.axis([xmin, xmax, ymin, ymax])
+    plt.subplot(111)
+    cb = plt.colorbar()
+
+    plt.show()
 
 if __name__ == '__main__':
     main()

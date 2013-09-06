@@ -14,7 +14,7 @@ import math as m
 
 # Global constants
 PI = 3.1415926535897931
-DELTA = 0.01
+DELTA = 0.05
 
 THETA_1_MIN = 0.0
 THETA_1_MAX = (155.0 / 180) * PI
