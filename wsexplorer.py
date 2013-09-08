@@ -5,8 +5,8 @@
 # https://github.com/Arn-O/youbot-workspace-explorer/blob/master/LICENSE.
 
 '''
-This program generates and dict of reachable positions of the end-effector of
-the KUKA youBot and dump the values into a flat file.
+This program generates a plot of the number for inverse kinematics solutions
+for a given position of the gripper of the KUKA youBot.
 '''
 
 import matplotlib.pyplot as plt

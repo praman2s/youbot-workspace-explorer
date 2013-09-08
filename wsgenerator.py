@@ -5,7 +5,7 @@
 # https://github.com/Arn-O/youbot-workspace-explorer/blob/master/LICENSE.
 
 '''
-This program generates and dict of reachable positions of the end-effector of
+This program generates a dict of reachable positions of the end-effector of
 the KUKA youBot and dump the values into a flat file.
 '''
 
