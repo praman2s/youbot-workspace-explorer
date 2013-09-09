@@ -21,6 +21,8 @@ def main():
     print 'Done.'
 
     while True:
+        print
+        print 'Enter (0, 0) to quit.'
         coord = (input('x? '), input('y? '))
         if coord == (0, 0):
             break
